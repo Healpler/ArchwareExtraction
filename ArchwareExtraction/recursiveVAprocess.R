@@ -20,26 +20,23 @@ if(!require(xml2)){
   library(xml2)
 }
 
+source(paste(c(extractPath,"manageKeywords.R"),collapse=""),local=TRUE)
 source(paste(c(extractPath,"extractVAprocess.R"),collapse=""),local=TRUE)
 
 #Découper les mots simple et comparer avec cette liste de mots clés. (VA + mot clé)
 extractKeyword1 <- function(){
-  res <- c("Spoofing","Phishing","Hijacking","Overlay","Squatting","Monitoring","Flood","Splitting","Smuggling",
-           "Tampering","Bypass","Abuse","Overflow","Poisoning","Disabling","Seizure","Jamming","Blocking","Alteration","Analysis",
-           "Impersonation", "Manipulation", "Expansion", "Linking", "Blowup", "Fragmentation", "Misuse", "Exploitation", "Altered",
-           "Injection", "Pollution", "Inclusion", "Insertion", "Scanning", "Discovery", "Footprinting", "Fingerprinting", "Probe")
-  return(res)
+  listKw <- extractWords()
+  return(unlist(listKw[1]))
 }
 #Ne pas découper le mots composés pour extractKeyword2, seulement localiser en text mining. (mot clé + VA)
 extractKeyword2 <- function(){
-  res <- c("Spoofing of ","Exploiting Incorrectly","Modification of","Collect Data from","Pretexting via","Bypassing of ")
-  return(res)
+  listKw <- extractWords()
+  return(unlist(listKw[2]))
 }
 #Découper les mots simple et comparer avec cette liste de mots clés. (mot clé + VA)
 extractKeyword3 <- function(){
-  res <- c("Manipulate","Leveraging","Manipulating","Disabling","Accessing","Intercepting","Modifying","Counterfeit",
-           "Fake the", "Exploit","Using", "Leverage", "Poison", "Infected", "Contaminate", "Detect","Probe", "Capture", "Sniffing")
-  return(res)
+  listKw <- extractWords()
+  return(unlist(listKw[3]))
 }
 ##################################
 
@@ -83,6 +80,12 @@ recursiveVAextraction <- function(design_pattern,res){
               va <- paste(c("Untested",va,"Input"),collapse=" ")
               va <- gsub("\\s\\s+"," ",va)
             }
+            
+            #Insert here your others particlar cases
+            #...
+            #///
+
+
             #Remove useless borderlines spaces
             va <- gsub("^(\\s)|$\\s","",va)
             findAWord <- 1

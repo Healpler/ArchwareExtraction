@@ -36,6 +36,15 @@ else
 		fi
 	fi
 
+	if [ $1 = "manageKeywords" ]
+	then
+		if [ $# -eq 4 -o $# -eq 2 ]
+		then
+			sudo Rscript $archwarePath/ExecutionProcesses.R loadPath $archwarePath
+			sudo Rscript $archwarePath/ExecutionProcesses.R manageKeywords $2 $3 $4
+		fi
+	fi
+
 	if [ $1 = "help" ]
 	then
 			echo "   ___  ______  _____  _   _ _    _  ___  ______ _____    ))    (("

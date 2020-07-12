@@ -12,6 +12,7 @@ if(identical(args[1],"loadPath")){
 }
 
 #print(paste(c(extractPath,"extractVAprocess.R"),collapse=""),local=TRUE)
+source(paste(c(extractPath,"manageKeywords.R"),collapse=""),local=TRUE)
 source(paste(c(extractPath,"recursiveVAprocess.R"),collapse=""),local=TRUE)
 source(paste(c(extractPath,"extractVAprocess.R"),collapse=""),local=TRUE)
 source(paste(c(extractPath,"ListDesignPatternRemaining.R"),collapse=""),local=TRUE)
@@ -30,6 +31,8 @@ if(length(args) == 2){
     recursiveVA(getwd(),2)
   }else if(identical(args[1],"extractVA") && args[2] == "3"){
     print("Permission denied : You are not allowed to use this option.")
+  }else if(identical(args[1],"manageKeywords") && args[2] == "howMany"){
+    howManyKw()
   }
 }else if(length(args) == 1){
   if(identical(args[1],"listAttackRemaining")){
@@ -51,6 +54,16 @@ if(length(args) == 2){
   }
 }else if(length(args) == 0){
   print("Type 'archwareExtract help' to know how to use these functions.")
+}else if(length(args) == 4){
+  if(identical(args[1],"manageKeywords")){
+    if(identical(args[2],"add")){
+      print(paste(c("You'r gonna add",args[3],"to ArchwareExtraction keywords"),collapse=" "))
+      manageKeywords("add",args[3],args[4])
+    }else if(identical(args[2],"del") || identical(args[2],"delete")){
+      print(paste(c("You'r gonna to delete",args[3],"to ArchwareExtraction keywords"),collapse=" "))
+      manageKeywords("delete",args[3],args[4])
+    }
+  }
 }
 
 #Execute listing of attack design pattern not yet extracted in a text file
