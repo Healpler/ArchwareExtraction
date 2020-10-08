@@ -23,17 +23,17 @@ if(!require(xml2)){
 source(paste(c(extractPath,"manageKeywords.R"),collapse=""),local=TRUE)
 source(paste(c(extractPath,"extractVAprocess.R"),collapse=""),local=TRUE)
 
-#Découper les mots simple et comparer avec cette liste de mots clés. (VA + mot clé)
+#DÃ©couper les mots simple et comparer avec cette liste de mots clÃ©s. (VA + mot clÃ©)
 extractKeyword1 <- function(){
   listKw <- extractWords()
   return(unlist(listKw[1]))
 }
-#Ne pas découper le mots composés pour extractKeyword2, seulement localiser en text mining. (mot clé + VA)
+#Ne pas dÃ©couper le mots composÃ©s pour extractKeyword2, seulement localiser en text mining. (mot clÃ© + VA)
 extractKeyword2 <- function(){
   listKw <- extractWords()
   return(unlist(listKw[2]))
 }
-#Découper les mots simple et comparer avec cette liste de mots clés. (mot clé + VA)
+#DÃ©couper les mots simple et comparer avec cette liste de mots clÃ©s. (mot clÃ© + VA)
 extractKeyword3 <- function(){
   listKw <- extractWords()
   return(unlist(listKw[3]))
@@ -58,7 +58,6 @@ recursiveVAextraction <- function(design_pattern,res){
   findAWord <- 0
   va <- ""
   if(alreadyProcessed == 0){
-    #print("Family 1 !")
     for(kw in kw1){
       if(alreadyFound == 0){
         for(w in splited){
@@ -67,7 +66,6 @@ recursiveVAextraction <- function(design_pattern,res){
             #va + kw
             alreadyFound <- 1
             ws <- paste(splited,collapse=" ")
-            #print("find !")
             #Remove all after kewords (and keyword) of part1 (VA + kw so everything after kw is useless)
             pattern1 <- paste(c(w,"(.*)"),collapse="")
             va <- gsub(pattern1,"",ws)
@@ -80,7 +78,7 @@ recursiveVAextraction <- function(design_pattern,res){
               va <- paste(c("Untested",va,"Input"),collapse=" ")
               va <- gsub("\\s\\s+"," ",va)
             }
-            
+
             #Insert here your others particlar cases
             #...
             #///
@@ -198,7 +196,7 @@ recursiveVA <- function(pathWorkDirectory,writeCSV){
       #Get the ID
       id <- str_extract(ws,"\\d+")
       ws <- gsub("_|\\d","",ws)
-      #Ici faire préposition (découpe en fonction des mots clés : via, into... et faire la recursive en fonction des découpes.)
+      #Ici faire prÃ©position (dÃ©coupe en fonction des mots clÃ©s : via, into... et faire la recursive en fonction des dÃ©coupes.)
       #Verify preposition presence:
       prepositionPresence <- str_extract(ws,"via|into")
       particularCancel <- str_extract(ws,"Pretexting via")
@@ -241,8 +239,8 @@ recursiveVA <- function(pathWorkDirectory,writeCSV){
     id <- NA
     res <- NA
     for(ws in part){
-      #Ici faire préposition (découpe en fonction des mots clés : via, into... et faire la recursive en fonction des découpes.)
-      #ATTENTION : Faire exception à "Pretexting via"
+      #Ici faire prÃ©position (dÃ©coupe en fonction des mots clÃ©s : via, into... et faire la recursive en fonction des dÃ©coupes.)
+      #ATTENTION : Faire exception Ã  "Pretexting via"
       #Get the ID
       id <- str_extract(ws,"\\d+")
       ws <- gsub("_|\\d","",ws)
